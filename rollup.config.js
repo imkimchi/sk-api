@@ -7,13 +7,13 @@ export default {
   input: 'vanilla/main.js', // Replace with the actual path to your JavaScript file
   output: 
     [{
-        file: 'dist/bundle.min.js',
+        file: 'dist/sk-api.min.js',
         format: 'iife',
         name: 'skApi',
         plugins: [terser()]
     },
     {
-        file: 'dist/bundle.js', 
+        file: 'dist/sk-api.js', 
         format: 'iife', 
         sourcemap: true,
         name: 'skApi'
