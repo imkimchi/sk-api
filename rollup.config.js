@@ -10,7 +10,7 @@ export default {
         file: 'dist/sk-api.min.js',
         format: 'iife',
         sourcemap: true,
-        name: 'version',
+        name: 'skApi',
         plugins: [terser()]
     },
   ],
