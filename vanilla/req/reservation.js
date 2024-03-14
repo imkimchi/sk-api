@@ -1,4 +1,11 @@
 window.Webflow?.push(async () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // Add leading zero for single-digit months
+  const day = String(today.getDate()).padStart(2, '0'); // Add leading zero for single-digit days
+  const formattedDate = `${year}년 ${month}월 ${day}일`;
+  $('.response-text-date').text(`SK쉴더스 ${formattedDate}`)
+
 function validateForm(data) {
   removeErrorStyles()
 
@@ -25,12 +32,18 @@ function validateForm(data) {
   }
 }
 
-function handleMissingFields(missingFields) {
-  for (const field of missingFields) {
-    const input = document.querySelector(`[name="${field}"]`) || document.querySelector(`#${field}`);
-    const errorMessage = document.querySelector(`.error-${field}`);
-    errorMessage.style.display = 'block';
-    input.classList.add('error');
+function handleMissingFields(missingFields, platform) {
+  if(platform === 'pc') {
+    missingFields.forEach(field => {
+      $(`.alert.${field}`).css('display', 'flex');
+    })
+  } else {
+    for (const field of missingFields) {
+      const input = document.querySelector(`[name="${field}"]`) || document.querySelector(`#${field}`);
+      const errorMessage = document.querySelector(`.error-${field}`);
+      errorMessage.style.display = 'block';
+      input.classList.add('error');
+    }
   }
 }
 
@@ -63,7 +76,6 @@ function handleDropdownSelect(content) {
         dropdownValue.innerHTML = content.innerHTML
         dropdownValue.classList.add('selected');
     }
-    
   })
 }
 
@@ -77,6 +89,8 @@ if(reservationApplyBtnMobile) reservationApplyBtnMobile.addEventListener('click'
 
 async function insertReservationData(e, platform) {
     e.preventDefault();
+    $('.alert').css('display', 'none');
+
     let reservationForm = document.querySelector(`[data-name="reservation-modal-${platform}"]`);
     let reservationformData = new FormData(reservationForm);
     let FormDataEntries = Object.fromEntries(reservationformData.entries());
@@ -87,24 +101,33 @@ async function insertReservationData(e, platform) {
         console.log("Form is valid! Submitting data...");
         handleInsertCounsel(FormDataEntries)
     } else {
-        handleMissingFields(validationResult.missingFields)
+        handleMissingFields(validationResult.missingFields, platform)
         console.error("Form is invalid. Missing fields:", validationResult.missingFields);
     }
-    
 }
 
-
 async function handleInsertCounsel(FormDataEntries) {
+  try {
     let data = {
-        name: FormDataEntries.name,
-        phone: FormDataEntries["phone-number"],
-        counsel_time: document.querySelector('.selected').innerText,
-        marketingUseYn: FormDataEntries["marketingUseYn"] ? (FormDataEntries["marketingUseYn"] === "on" ? "Y" : "N") : "",
-        marketingCollectYn: FormDataEntries["marketingCollectYn"] ? (FormDataEntries["marketingCollectYn"] === "on" ? "Y" : "N") : "",
+      name: FormDataEntries.name,
+      phone: FormDataEntries["phone-number"],
+      counsel_time: document.querySelector('.selected').innerText,
+      marketingUseYn: FormDataEntries["marketingUseYn"] ? (FormDataEntries["marketingUseYn"] === "on" ? "Y" : "N") : "",
+      marketingCollectYn: FormDataEntries["marketingCollectYn"] ? (FormDataEntries["marketingCollectYn"] === "on" ? "Y" : "N") : "",
+    }
+
+    const checkedOnlyRequiredFields = marketingUseYn && marketingCollectYn
+    if (checkedOnlyRequiredFields) {
+      $('.response-only-requirements').css('display', 'flex');
+    } else {
+      $('.response-all').css('display', 'flex');
     }
 
     let res = await SkApi.insertCounsel(data);
-    console.log(res);
+    // console.log("API RES", res)
+  } catch (e) {
+    console.error(`Req failed: ${e.message}`)
+  }
 }
 
 if(document.querySelector('.reservation-wrapper')) {
