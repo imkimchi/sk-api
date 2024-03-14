@@ -116,7 +116,7 @@ async function handleInsertCounsel(FormDataEntries) {
       marketingCollectYn: FormDataEntries["marketingCollectYn"] ? (FormDataEntries["marketingCollectYn"] === "on" ? "Y" : "N") : "",
     }
 
-    const checkedOnlyRequiredFields = marketingUseYn && marketingCollectYn
+    const checkedOnlyRequiredFields = data.marketingUseYn && data.marketingCollectYn
     if (checkedOnlyRequiredFields) {
       $('.response-only-requirements').css('display', 'flex');
     } else {
