@@ -124,7 +124,7 @@ async function handleInsertCounsel(FormDataEntries) {
     }
 
     let res = await SkApi.insertCounsel(data);
-    // console.log("API RES", res)
+    console.log(res)
   } catch (e) {
     console.error(`Req failed: ${e.message}`)
   }
