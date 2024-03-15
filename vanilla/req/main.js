@@ -1,3 +1,5 @@
+// 11:50, 3/15
+
 window.Webflow?.push(async () => {
   const today = new Date();
   const year = today.getFullYear();
@@ -118,9 +120,9 @@ async function handleInsertCounsel(FormDataEntries) {
 
     const checkedOnlyRequiredFields = data.marketingUseYn && data.marketingCollectYn
     if (checkedOnlyRequiredFields) {
-      $('.response-only-requirements').css('display', 'flex');
-    } else {
       $('.response-all').css('display', 'flex');
+    } else {
+      $('.response-only-requirements').css('display', 'flex');
     }
 
     let res = await SkApi.insertCounsel(data);
