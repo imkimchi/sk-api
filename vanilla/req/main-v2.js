@@ -91,6 +91,7 @@ if(reservationApplyBtnMobile) reservationApplyBtnMobile.addEventListener('click'
 
 async function insertReservationData(e, platform) {
     e.preventDefault();
+    $('.reservation-modal').css('display', 'none')
     $('.alert').css('display', 'none');
 
     let reservationForm = document.querySelector(`[data-name="reservation-modal-${platform}"]`);
