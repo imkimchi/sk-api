@@ -216,8 +216,7 @@ window.Webflow?.push(async () => {
         if(currentTab === '5') {  
             showResidential()
         } else {
-            const textContent = getEstimationText()
-            console.log("dispatchClicked", dispatchClicked, cctvClicked)
+            console.log(dispatchClicked, cctvClicked, entryType, cctvType)
             if(!dispatchClicked && !cctvClicked) {
                 alert('서비스를 선택해주세요.')
                 return;
@@ -230,7 +229,8 @@ window.Webflow?.push(async () => {
                     return;
                 }
             }
-    
+
+            const textContent = getEstimationText()    
             if(dispatchClicked) showDispatch(textContent['first'])
             if(cctvClicked) showCctv(textContent['second'])
         }
