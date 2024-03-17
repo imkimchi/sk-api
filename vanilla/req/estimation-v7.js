@@ -122,8 +122,6 @@ window.Webflow?.push(async () => {
     let innerGuardChecked
     
     function initializeValues() {
-        console.log("INITIAL..")
-    
         currentTab = $('.w-tab-link.w--current').attr('data-w-tab').replace('Tab ', '')
         doorCount = $('.w--tab-active').find('#door-count').text()
         windowCount = $('.w--tab-active').find('#window-count').text()
@@ -167,9 +165,6 @@ window.Webflow?.push(async () => {
             }
         });
     
-        console.log("cctvTypeMap[selectedValue] ", cctvTypeMap[selectedValue], selectedValue)
-    
-    
         return cctvTypeMap[selectedValue] || null;
     }
     
@@ -211,10 +206,10 @@ window.Webflow?.push(async () => {
         initializeValues()
         hideAllBoxes()
     
-        
-    
+
         if(currentTab === '5') {  
             showResidential()
+            $('.estimation-modal').css('display', 'flex')
         } else {
             console.log(dispatchClicked, cctvClicked, entryType, cctvType)
             
