@@ -221,6 +221,14 @@ window.Webflow?.push(async () => {
             if(!dispatchClicked && !cctvClicked) {
                 alert('서비스를 선택해주세요.')
                 return;
+            } else if (!entryType && !cctvType) {
+                if(!entryType) {
+                    alert('출입방식을 선택해주세요.')
+                    return;
+                } else {
+                    alert('CCTV 종류를 선택해주세요.')
+                    return;
+                }
             }
     
             if(dispatchClicked) showDispatch(textContent['first'])
