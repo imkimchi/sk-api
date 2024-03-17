@@ -217,21 +217,22 @@ window.Webflow?.push(async () => {
             showResidential()
         } else {
             console.log(dispatchClicked, cctvClicked, entryType, cctvType)
+            
             if(!dispatchClicked && !cctvClicked) {
                 e.preventDefault()
                 alert('서비스를 선택해주세요.')
                 return;
-            } else if (!entryType && !cctvType) {
-                if(!entryType) {
-                    e.preventDefault()
-                    alert('출입방식을 선택해주세요.')
-                    return;
-                } else {
-                    e.preventDefault()
-                    alert('CCTV 종류를 선택해주세요.')
-                    return;
-                }
+            } else if (dispatchClicked && !entryType) {
+                e.preventDefault()
+                alert('출입방식을 선택해주세요.')
+                return;
+            } else if (cctvClicked && !cctvType) {
+                e.preventDefault()
+                alert('CCTV 종류를 선택해주세요.')
+                return;
             }
+
+            
             
             $('.estimation-modal').css('display', 'flex')
 
