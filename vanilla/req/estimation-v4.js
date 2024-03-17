@@ -207,7 +207,7 @@ window.Webflow?.push(async () => {
         viewGuardCloud: '캡스 뷰가드 클라우드'
     }
     
-    function showElements() {
+    function showElements(e) {
         initializeValues()
         hideAllBoxes()
     
@@ -218,13 +218,16 @@ window.Webflow?.push(async () => {
         } else {
             console.log(dispatchClicked, cctvClicked, entryType, cctvType)
             if(!dispatchClicked && !cctvClicked) {
+                e.preventDefault()
                 alert('서비스를 선택해주세요.')
                 return;
             } else if (!entryType && !cctvType) {
                 if(!entryType) {
+                    e.preventDefault()
                     alert('출입방식을 선택해주세요.')
                     return;
                 } else {
+                    e.preventDefault()
                     alert('CCTV 종류를 선택해주세요.')
                     return;
                 }
@@ -377,5 +380,5 @@ window.Webflow?.push(async () => {
         }
     }
     
-    $('#submit-estimation-request').click(() => showElements())
+    $('#submit-estimation-request').click((e) => showElements(e))
 })
