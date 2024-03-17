@@ -232,6 +232,8 @@ window.Webflow?.push(async () => {
                     return;
                 }
             }
+            
+            $('.estimation-modal').css('display', 'flex')
 
             const textContent = getEstimationText()    
             if(dispatchClicked) showDispatch(textContent['first'])
