@@ -20,7 +20,7 @@ function runNext() {
             runNext();
         }, nextFunction.duration);
     } else {
-        document.body.style.overflow = 'hidden';
+        
     }
 }
 
