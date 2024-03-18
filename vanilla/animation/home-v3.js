@@ -1,3 +1,11 @@
+function disableScrollWhileAnimation() {
+    document.body.style.overflow = 'hidden';
+}
+
+function enableScrollAfterAnimation() {
+    document.body.style.overflow = 'auto';
+}
+
 const customtriggerElements = ['#custom-main-trigger1', '#custom-main-trigger2', '#custom-main-trigger3', '#custom-main-trigger4'];
 
 const functionsQueue = [
@@ -14,14 +22,14 @@ function runNext() {
     if (functionsQueue.length > 0) {
         const nextFunction = functionsQueue.shift();
         isRunning = true;
+        disableScrollWhileAnimation()
         nextFunction.run();
         setTimeout(() => {
+            enableScrollAfterAnimation()
             isRunning = false;
             runNext();
         }, nextFunction.duration);
-    } else {
-        
-    }
+    } 
 }
 
 window.addEventListener('scroll', function() {

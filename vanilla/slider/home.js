@@ -14,13 +14,13 @@ window.Webflow?.push(function () {
     $(window).scrollTop(0,0)
     
     ;(() => {
+        
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-        let disableSlider = false;
+        let disableSlider = true;
         let animatedSlides = []
         
         async function slideAnimation(i) {
             if(animatedSlides.includes(i)) return;
-        
             disableSlider = true
             disableScrollWhileSliding()
             const pageInfo = $($('.transition-pageinfo')[i])
@@ -59,14 +59,7 @@ window.Webflow?.push(function () {
             const isNextSlideDone = $('.transition-pageinfo')[0].style.opacity === '0'
             
             if(isNextSlideDone) {
-                // let target;
 
-                // if (window.innerWidth <= 1445) {
-                //    target = $('.reservation-wrapper-tab')
-                // } else {
-                //     target = $(".reservation-wrapper")
-                // }
-                
                 $('.reservation').css({
                     "position": "sticky",
                     "bottom": "0"
@@ -114,7 +107,6 @@ window.Webflow?.push(function () {
                 return;
               }
               dots = createDiv("dots");
-              console.log("slider", slider)
               slider.track.details.slides.forEach((_e, idx) => {
                 var dot = createDiv("dot");
                 dot.addEventListener("click", () => slider.moveToIdx(idx));
