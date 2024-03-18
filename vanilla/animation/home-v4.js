@@ -27,7 +27,6 @@ function runNext() {
         setTimeout(() => {
             enableScrollAfterAnimation()
             isRunning = false;
-            runNext();
         }, nextFunction.duration);
     } 
 }
