@@ -21,7 +21,7 @@ sellPointIcons.forEach(iconElement => {
 
 
 const currentSlide = $(`${window.location.hash}`).index() || 1
-sliderVisibility ? $('.inner').eq(currentSlide - 1).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
+isSliderVisible() ? $('.inner').eq(currentSlide - 1).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
 
 
 var sellPointLeftElement = document.querySelector('.sell-point-left');
