@@ -12,7 +12,7 @@ window.Webflow?.push(function () {
 
     function initializeBasicSlider() {
     let isRunning = false;
-    let basicCurrentSlide = 1;
+    window.basicCurrentSlide = 1;
     let basicSlideCount = $('.slider-img').length
 
     initializeSlider()
@@ -45,10 +45,10 @@ window.Webflow?.push(function () {
 
 
     function initializeSlider() {
-        basicCurrentSlide = (getLevel2Order() + 1) || 1
+        window.basicCurrentSlide = (getLevel2Order() + 1) || 1
 
         const slides = Array.from({ length: basicSlideCount }, (_, index) => index + 1)
-        const {higher, lower} = findHigherAndLower(slides, basicCurrentSlide);
+        const {higher, lower} = findHigherAndLower(slides, window.basicCurrentSlide);
         higher.forEach(slide => {
             $(`.slide-img-order-${slide}`).css('transform', 'translateY(100%)');
         });
@@ -56,12 +56,11 @@ window.Webflow?.push(function () {
             $(`.slide-img-order-${slide}`).css('transform', 'translateY(-100%)');
         });
 
-        $(`.slide-img-order-${basicCurrentSlide}`).css('transform', 'translateY(0%)');
+        $(`.slide-img-order-${window.basicCurrentSlide}`).css('transform', 'translateY(0%)');
 
         
-        $(`.text-wrap-${basicCurrentSlide}`).css('opacity', 1);
-        $(`.teaser-text-wrap:not(.text-wrap-${basicCurrentSlide})`).css('opacity', 0);
-
+        $(`.text-wrap-${window.basicCurrentSlide}`).css('opacity', 1);
+        $(`.teaser-text-wrap:not(.text-wrap-${window.basicCurrentSlide})`).css('opacity', 0);
     }
 
     function runAnimation(direction) {
@@ -73,7 +72,7 @@ window.Webflow?.push(function () {
         setTimeout(() => {
             isRunning = false;
             enableScrollAfterAnimation()
-            basicCurrentSlide = direction === 'up' ? basicCurrentSlide - 1 : basicCurrentSlide + 1;
+            window.basicCurrentSlide = direction === 'up' ? window.basicCurrentSlide - 1 : window.basicCurrentSlide + 1;
         }, 1000);
     }
 
@@ -87,8 +86,8 @@ window.Webflow?.push(function () {
         if(!isSliderVisible) return;
 
         const direction = e.deltaY > 0 ? 'down' : 'up'
-        if(direction === 'up' && basicCurrentSlide === 1) return;
-        if(direction === 'down' && basicCurrentSlide === basicSlideCount) return;
+        if(direction === 'up' && window.basicCurrentSlide === 1) return;
+        if(direction === 'down' && window.basicCurrentSlide === basicSlideCount) return;
         
         if (!isRunning) {
             runAnimation(direction);
@@ -97,16 +96,16 @@ window.Webflow?.push(function () {
 
 
     function imageTransition(direction) {
-        const slidetoShow = direction === 'up' ? basicCurrentSlide - 1 : basicCurrentSlide + 1;
+        const slidetoShow = direction === 'up' ? window.basicCurrentSlide - 1 : window.basicCurrentSlide + 1;
         $(`.slide-img-order-${slidetoShow}`).css('transform', 'translateY(0%)');
         
         const moveTo = direction === 'up' ? 'translateY(100%)' : 'translateY(-100%)';
-        $(`.slide-img-order-${basicCurrentSlide}`).css('transform', moveTo);
-        // console.log("INTRansition", slidetoShow, basicCurrentSlide)
+        $(`.slide-img-order-${window.basicCurrentSlide}`).css('transform', moveTo);
+        // console.log("INTRansition", slidetoShow, window.basicCurrentSlide)
     }
 
     function textTransition(direction) {
-        const slidetoShow = direction === 'up' ? basicCurrentSlide - 1 : basicCurrentSlide + 1;
+        const slidetoShow = direction === 'up' ? window.basicCurrentSlide - 1 : window.basicCurrentSlide + 1;
         $(`.text-wrap-${slidetoShow}`).css('opacity', 1);
         $(`.teaser-text-wrap:not(.text-wrap-${slidetoShow})`).css('opacity', 0);
     }

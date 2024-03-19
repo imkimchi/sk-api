@@ -247,10 +247,10 @@ window.addEventListener('resize', handleScreenWidth);
 
   function initializeSlider(index) {
       let basicSlideCount = $('.slider-img').length
-      basicCurrentSlide = index
+      window.basicCurrentSlide = index + 1
 
       const slides = Array.from({ length: basicSlideCount }, (_, index) => index + 1)
-      const {higher, lower} = findHigherAndLower(slides, basicCurrentSlide);
+      const {higher, lower} = findHigherAndLower(slides, window.basicCurrentSlide);
       higher.forEach(slide => {
           $(`.slide-img-order-${slide}`).css('transform', 'translateY(100%)');
       });
@@ -258,13 +258,19 @@ window.addEventListener('resize', handleScreenWidth);
           $(`.slide-img-order-${slide}`).css('transform', 'translateY(-100%)');
       });
 
-      $(`.slide-img-order-${basicCurrentSlide}`).css('transform', 'translateY(0%)');
-
-      
-      $(`.text-wrap-${basicCurrentSlide}`).css('opacity', 1);
-      $(`.teaser-text-wrap:not(.text-wrap-${basicCurrentSlide})`).css('opacity', 0);
+      $(`.slide-img-order-${window.basicCurrentSlide}`).css('transform', 'translateY(0%)');
+      $(`.text-wrap-${window.basicCurrentSlide}`).css('opacity', 1);
+      $(`.teaser-text-wrap:not(.text-wrap-${window.basicCurrentSlide})`).css('opacity', 0);
   }
 
-  $('.inner-sell-point-text').click((el,i) => initializeSlider($('.inner-sell-point-text').index(el.currentTarget)))
+  $('.inner-sell-point-text').click((el,i) => {
+    // $(window).scrollTop($('.basic-slider-container').offset().top);
+
+  //   $('html, body').animate({
+  //     scrollTop: $('.basic-slider-container').offset().top
+  // }, 1000); // Adjust the duration as needed
+  
+    initializeSlider($('.inner-sell-point-text').index(el.currentTarget))
+  })
   
 });
