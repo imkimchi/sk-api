@@ -22,8 +22,6 @@ sellPointIcons.forEach(iconElement => {
 
 const currentSlide = $(`${window.location.hash}`).index() !== -1 ? $(`${window.location.hash}`).index() : 1
 isSliderVisible() ? $('.inner').eq(currentSlide - 1).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
-
-
 console.log("currentSlide", currentSlide)
 
 var sellPointLeftElement = document.querySelector('.sell-point-left');
@@ -77,11 +75,9 @@ function colorChangeHandler() {
     $('.sell-point-icon svg').remove()
     $('.inner-sell-point-icon svg').remove()
 
+    isSliderVisible() ? $('.inner').eq(currentInnerPlayingIndex || 0).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
 
-    isSliderVisible() ? $('.inner').eq(currentInnerPlayingIndex).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
 
-
-    
     sellPointIcons.forEach(iconElement => {
         animations.push(initLottieAnimation(iconElement, animationDatatoChange))
     });
