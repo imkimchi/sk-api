@@ -74,17 +74,7 @@ window.Webflow?.push(function () {
             window.basicCurrentSlide = direction === 'up' ? window.basicCurrentSlide - 1 : window.basicCurrentSlide + 1;
         }, 1000);
     }
-
-
-    document.querySelector('.intro-right-text').addEventListener('wheel', function(e) {
-        const direction = e.deltaY > 0 ? 'down' : 'up'
-        const isVisible = calculateVisibility(document.querySelector('.basic-slider'))
-
-        if(direction === 'up' && !isVisible) {
-            $(window).scrollTop($('.basic-slider-container').offset().top);
-        }
-    })
-
+    
 
     document.querySelector('.basic-slider').addEventListener('wheel', function(e) {
         if(window.innerWidth <= 991) {
