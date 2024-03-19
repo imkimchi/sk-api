@@ -191,7 +191,7 @@ window.addEventListener('resize', handleScreenWidth);
 
         if (elementIndex !== -1) { 
             const newOpacity = window.getComputedStyle(targetElement).opacity;
-            if (newOpacity === '0') { 
+            if (newOpacity === '0' && isSliderVisible()) { 
               console.log("targetElement.classList", targetElement.classList)
                 const changedIndex = targetElement.classList[1].split('-')[2]
                 setInnerNavLink(changedIndex)
