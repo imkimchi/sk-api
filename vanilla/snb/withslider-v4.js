@@ -20,7 +20,7 @@ sellPointIcons.forEach(iconElement => {
 });
 
 
-const currentSlide = $(`${window.location.hash}`).index() || 1
+const currentSlide = $(`${window.location.hash}`).index() !== -1 ? $(`${window.location.hash}`).index() : 1
 isSliderVisible() ? $('.inner').eq(currentSlide - 1).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
 
 
@@ -75,7 +75,7 @@ function colorChangeHandler() {
     $('.sell-point-icon svg').remove()
     $('.inner-sell-point-icon svg').remove()
 
-    const currentSlide = $(`${window.location.hash}`).index() || 1
+    const currentSlide = $(`${window.location.hash}`).index() !== -1 ? $(`${window.location.hash}`).index() : 1
     sliderVisibility ? $('.inner').eq(currentSlide - 1).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
 
     sellPointIcons.forEach(iconElement => {
@@ -189,6 +189,7 @@ window.addEventListener('resize', handleScreenWidth);
         if (elementIndex !== -1) { 
             const newOpacity = window.getComputedStyle(targetElement).opacity;
             if (newOpacity === '0') { 
+              console.log("targetElement.classList", targetElement.classList)
                 const changedIndex = targetElement.classList[1].split('-')[2]
                 setInnerNavLink(changedIndex)
 
