@@ -23,6 +23,7 @@ sellPointIcons.forEach(iconElement => {
 const currentSlide = $(`${window.location.hash}`).index() !== -1 ? $(`${window.location.hash}`).index() : 1
 isSliderVisible() ? $('.inner').eq(currentSlide - 1).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
 
+
 console.log("currentSlide", currentSlide)
 
 var sellPointLeftElement = document.querySelector('.sell-point-left');
@@ -77,7 +78,10 @@ function colorChangeHandler() {
     $('.inner-sell-point-icon svg').remove()
 
 
-    console.log("currentSlide inside scroll", currentSlide)
+    isSliderVisible() ? $('.inner').eq(currentInnerPlayingIndex).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
+
+
+    
     sellPointIcons.forEach(iconElement => {
         animations.push(initLottieAnimation(iconElement, animationDatatoChange))
     });
@@ -167,9 +171,10 @@ window.addEventListener('resize', handleScreenWidth);
     }
 
     function setInnerNavLink(index) {
-      console.log("inside setInnerNavLink", index)
+      if(isSliderVisible()) {
         $('.inner').css('color', '#B8BCC8')
         $('.inner').eq(index - 1).css('color', '#fff')
+      }
     }
 
     function handleScroll() {
