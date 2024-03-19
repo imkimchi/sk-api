@@ -2,6 +2,8 @@ window.Webflow?.push(function () {
     $(window).on('load resize', function() {
         if (window.innerWidth > 991) {
             initializeBasicSlider()
+        } else {
+            $('.teaser-text-wrap').css('opacity', 1);
         }
     });
 })
@@ -54,6 +56,7 @@ function initializeBasicSlider() {
 
         $(`.slide-img-order-${basicCurrentSlide}`).css('transform', 'translateY(0%)');
 
+        
         $(`.text-wrap-${basicCurrentSlide}`).css('opacity', 1);
         $(`.teaser-text-wrap:not(.text-wrap-${basicCurrentSlide})`).css('opacity', 0);
 
