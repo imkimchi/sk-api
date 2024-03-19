@@ -79,9 +79,11 @@ window.Webflow?.push(function () {
 
 
     document.querySelector('.basic-slider').addEventListener('wheel', function(e) {
-        const isSliderVisible = calculateVisibility(document.querySelector('.basic-slider')) === 0;
+        if(window.innerWidth <= 991) {
+            return;    
+        }
 
-        console.log("isSliderVisible",isSliderVisible)
+        const isSliderVisible = calculateVisibility(document.querySelector('.basic-slider')) === 0;
         if(!isSliderVisible) return;
 
         const direction = e.deltaY > 0 ? 'down' : 'up'
