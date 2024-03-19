@@ -19,10 +19,8 @@ sellPointIcons.forEach(iconElement => {
     animations.push(initLottieAnimation(iconElement, animationData))
 });
 
-
 const currentSlide = $(`${window.location.hash}`).index() !== -1 ? $(`${window.location.hash}`).index() : 1
 isSliderVisible() ? $('.inner').eq(currentSlide - 1).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
-console.log("currentSlide", currentSlide)
 
 var sellPointLeftElement = document.querySelector('.sell-point-left');
 
@@ -75,8 +73,7 @@ function colorChangeHandler() {
     $('.sell-point-icon svg').remove()
     $('.inner-sell-point-icon svg').remove()
 
-    isSliderVisible() ? $('.inner').eq(currentInnerPlayingIndex || 0).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
-    console.log("currentInnerPlayingIndex || 0", currentInnerPlayingIndex || 0)
+    isSliderVisible() ? $('.inner').eq(currentInnerPlayingIndex || 0).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')  
 
     sellPointIcons.forEach(iconElement => {
         animations.push(initLottieAnimation(iconElement, animationDatatoChange))
@@ -168,7 +165,7 @@ window.addEventListener('resize', handleScreenWidth);
 
     function setInnerNavLink(index) {
       if(isSliderVisible()) {
-        console.log("setInnerNavLink index", index)
+
         $('.inner').css('color', '#B8BCC8')
         $('.inner').eq(index - 1).css('color', '#fff')
       }
@@ -192,7 +189,6 @@ window.addEventListener('resize', handleScreenWidth);
         if (elementIndex !== -1) { 
             const newOpacity = window.getComputedStyle(targetElement).opacity;
             if (newOpacity === '0' && isSliderVisible()) { 
-              console.log("targetElement.classList", targetElement.classList)
                 const changedIndex = targetElement.classList[1].split('-')[2]
                 setInnerNavLink(changedIndex)
 
@@ -232,4 +228,43 @@ window.addEventListener('resize', handleScreenWidth);
             return false;
         }
     }
+
+
+    function findHigherAndLower(arr, num) {
+      const higher = [];
+      const lower = [];
+
+      for (let i = 0; i < arr.length; i++) {
+          if (arr[i] > num) {
+              higher.push(arr[i]);
+          } else if (arr[i] < num) {
+              lower.push(arr[i]);
+          }
+      }
+      return { higher, lower };
+  }
+
+
+  function initializeSlider(index) {
+      let basicSlideCount = $('.slider-img').length
+      basicCurrentSlide = index
+
+      const slides = Array.from({ length: basicSlideCount }, (_, index) => index + 1)
+      const {higher, lower} = findHigherAndLower(slides, basicCurrentSlide);
+      higher.forEach(slide => {
+          $(`.slide-img-order-${slide}`).css('transform', 'translateY(100%)');
+      });
+      lower.forEach(slide => {
+          $(`.slide-img-order-${slide}`).css('transform', 'translateY(-100%)');
+      });
+
+      $(`.slide-img-order-${basicCurrentSlide}`).css('transform', 'translateY(0%)');
+
+      
+      $(`.text-wrap-${basicCurrentSlide}`).css('opacity', 1);
+      $(`.teaser-text-wrap:not(.text-wrap-${basicCurrentSlide})`).css('opacity', 0);
+  }
+
+  $('.inner-sell-point-text').click((el,i) => initializeSlider($('.inner-sell-point-text').index(el.currentTarget)))
+  
 });
