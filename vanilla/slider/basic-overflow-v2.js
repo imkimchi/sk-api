@@ -76,6 +76,16 @@ window.Webflow?.push(function () {
     }
 
 
+    document.querySelector('.intro-right-text').addEventListener('wheel', function(e) {
+        const direction = e.deltaY > 0 ? 'down' : 'up'
+        const isVisible = calculateVisibility(document.querySelector('.basic-slider'))
+
+        if(direction === 'up' && !isVisible) {
+            $(window).scrollTop($('.basic-slider-container').offset().top);
+        }
+    })
+
+
     document.querySelector('.basic-slider').addEventListener('wheel', function(e) {
         if(window.innerWidth <= 991) {
             return;    
@@ -87,8 +97,6 @@ window.Webflow?.push(function () {
         const direction = e.deltaY > 0 ? 'down' : 'up'
         if(direction === 'up' && window.basicCurrentSlide === 1) return;
         if(direction === 'down' && window.basicCurrentSlide === basicSlideCount) return;
-        
-
 
         if (!isRunning) {
             const elementB = document.querySelector('.intro-right-text');
