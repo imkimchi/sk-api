@@ -77,8 +77,10 @@ function colorChangeHandler() {
     $('.inner-sell-point-icon svg').remove()
 
     const currentSlide = $(`${window.location.hash}`).index() !== -1 ? $(`${window.location.hash}`).index() : 1
-    sliderVisibility ? $('.inner').eq(currentSlide - 1).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
+    isSliderVisible() ? $('.inner').eq(currentSlide - 1).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
+    
 
+    console.log("currentSlide inside scroll", currentSlide)
     sellPointIcons.forEach(iconElement => {
         animations.push(initLottieAnimation(iconElement, animationDatatoChange))
     });
