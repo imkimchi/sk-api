@@ -76,7 +76,7 @@ function colorChangeHandler() {
     $('.inner-sell-point-icon svg').remove()
 
     isSliderVisible() ? $('.inner').eq(currentInnerPlayingIndex || 0).css('color', '#fff') : $('.inner').css('color', '#B8BCC8')
-
+    console.log("currentInnerPlayingIndex || 0", currentInnerPlayingIndex || 0)
 
     sellPointIcons.forEach(iconElement => {
         animations.push(initLottieAnimation(iconElement, animationDatatoChange))
@@ -168,6 +168,7 @@ window.addEventListener('resize', handleScreenWidth);
 
     function setInnerNavLink(index) {
       if(isSliderVisible()) {
+        console.log("setInnerNavLink index", index)
         $('.inner').css('color', '#B8BCC8')
         $('.inner').eq(index - 1).css('color', '#fff')
       }
