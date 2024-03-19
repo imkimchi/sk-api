@@ -264,12 +264,7 @@ window.addEventListener('resize', handleScreenWidth);
   }
 
   $('.inner-sell-point-text').click((el,i) => {
-    // $(window).scrollTop($('.basic-slider-container').offset().top);
-
-  //   $('html, body').animate({
-  //     scrollTop: $('.basic-slider-container').offset().top
-  // }, 1000); // Adjust the duration as needed
-  
+    $(window).scrollTop($('.basic-slider-container').offset().top);
     initializeSlider($('.inner-sell-point-text').index(el.currentTarget))
   })
   
