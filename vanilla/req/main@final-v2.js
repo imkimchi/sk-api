@@ -63,7 +63,7 @@ function removeErrorStyles() {
 }
 
 const dropdownContents = document.querySelectorAll('.dropdown-content');
-const dropdownValues = [document.querySelector('.selectbox-value'), document.querySelector('.selectbox-value-copy')]
+const dropdownValues = [document.querySelector('.selectbox-value'), document.querySelector('.selectbox-value-copy'), document.querySelector('.selectbox-value-estimation-modal-dropdown')]
 
 for (const content of dropdownContents) {
   content.addEventListener('click', () => {
@@ -85,9 +85,11 @@ function handleDropdownSelect(content) {
 
 const reservationApplyBtn = document.querySelector('.reservation-act:not(.mobile)')
 const reservationApplyBtnMobile = document.querySelector('.reservation-act.mobile')
+const reservationApplyBtnEstimation = document.querySelector('.reservation-act.estimation')
 
 if(reservationApplyBtn) reservationApplyBtn.addEventListener('click', (e) => insertReservationData(e, 'pc'))
 if(reservationApplyBtnMobile) reservationApplyBtnMobile.addEventListener('click', (e) => insertReservationData(e, 'mobile'))
+if(reservationApplyBtnEstimation) reservationApplyBtnEstimation.addEventListener('click', (e) => insertReservationData(e, 'estimation'))
 
 
 async function insertReservationData(e, platform) {
@@ -111,8 +113,8 @@ async function insertReservationData(e, platform) {
 }
 
 async function handleInsertCounsel(FormDataEntries, platform) {
-  const marketingUseYnMap = platform === 'pc' ? FormDataEntries['marketingUseYn'] : FormDataEntries['consent-marketing-pii-2']
-  const marketingCollectYnMap = platform === 'pc' ? FormDataEntries['marketingCollectYn'] : FormDataEntries['consent-remarketing-2']
+  const marketingUseYnMap = platform === 'pc' ? FormDataEntries['marketingUseYn'] : FormDataEntries['consent-marketing-pii-2'] || FormDataEntries['consent-marketing-pii-3']
+  const marketingCollectYnMap = platform === 'pc' ? FormDataEntries['marketingCollectYn'] : FormDataEntries['consent-remarketing-2'] || FormDataEntries['consent-remarketing-3']
   
   try {
     let data = {
