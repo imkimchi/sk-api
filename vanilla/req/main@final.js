@@ -1,4 +1,4 @@
-// 11:50, 3/15
+// 9:21, 3/20
 
 window.Webflow?.push(async () => {
   const today = new Date();
@@ -7,6 +7,7 @@ window.Webflow?.push(async () => {
   const day = String(today.getDate()).padStart(2, '0'); // Add leading zero for single-digit days
   const formattedDate = `${year}년 ${month}월 ${day}일`;
   $('.response-text-date').text(`SK쉴더스 ${formattedDate}`)
+  $('.text-116').eq(0).text(`SK쉴더스 ${formattedDate}`)
 
 function validateForm(data) {
   removeErrorStyles()
@@ -102,22 +103,27 @@ async function insertReservationData(e, platform) {
 
     if (validationResult.isValid) {
         console.log("Form is valid! Submitting data...");
-        handleInsertCounsel(FormDataEntries)
+        handleInsertCounsel(FormDataEntries, platform)
     } else {
         handleMissingFields(validationResult.missingFields, platform)
         console.error("Form is invalid. Missing fields:", validationResult.missingFields);
     }
 }
 
-async function handleInsertCounsel(FormDataEntries) {
+async function handleInsertCounsel(FormDataEntries, platform) {
+  const marketingUseYnMap = platform === 'pc' ? FormDataEntries['marketingUseYn'] : FormDataEntries['consent-marketing-pii-2']
+  const marketingCollectYnMap = platform === 'pc' ? FormDataEntries['marketingCollectYn'] : FormDataEntries['consent-remarketing-2']
+  
   try {
     let data = {
       name: FormDataEntries.name,
       phone: FormDataEntries["phone-number"],
       counsel_time: document.querySelector('.selected').innerText,
-      marketingUseYn: FormDataEntries["marketingUseYn"] ? (FormDataEntries["marketingUseYn"] === "on" ? "Y" : "N") : "",
-      marketingCollectYn: FormDataEntries["marketingCollectYn"] ? (FormDataEntries["marketingCollectYn"] === "on" ? "Y" : "N") : "",
+      marketingUseYn: marketingUseYnMap ? (marketingUseYnMap === "on" ? "Y" : "N") : "",
+      marketingCollectYn: marketingCollectYnMap ? (marketingCollectYnMap === "on" ? "Y" : "N") : "",
     }
+
+    console.log("DATA", data, FormDataEntries)
 
     const checkedOnlyRequiredFields = data.marketingUseYn && data.marketingCollectYn
     if (checkedOnlyRequiredFields) {
